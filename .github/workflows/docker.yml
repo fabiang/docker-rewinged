@@ -1,0 +1,78 @@
+name: Docker Image
+
+on:
+  push:
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+  pull_request:
+  schedule:
+    - cron: "0 12 1-7 * 2"
+
+jobs:
+  docker-image-alpine:
+    strategy:
+      matrix:
+        rewinged:
+          # lts: true should also be the latest version of the LTS versions (so only one lts: true)
+          - version: "0.3.0"
+            version_minor: ""
+            version_major: ""
+
+    env:
+      IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-alpine"
+      IMAGE_NAME_MINOR: "fabiang/rewinged:${{ matrix.rewinged.version_minor }}-alpine"
+      IMAGE_NAME_MAJOR: "fabiang/rewinged:${{ matrix.rewinged.version_major }}-alpine"
+
+    runs-on: ubuntu-latest
+
+    name: "v${{ matrix.rewinged.version }} – Alpine"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: jpribyl/action-docker-layer-caching@v0.1.1
+        continue-on-error: true
+
+      - name: Build Image
+        run: |
+          docker build -f alpine/Dockerfile \
+            -t '${{ env.IMAGE_NAME_FULL }}' \
+            \
+            '--build-arg=REWINGED_VERSION=${{ matrix.rewinged.version }}' \
+            .
+
+      - name: Test Image
+        run : |
+          docker run -i --rm ${{ env.IMAGE_NAME_FULL }} --version
+
+      - name: Tag Minor
+        if: "${{ matrix.rewinged.version_minor != '' }}"
+        run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MINOR }}'
+
+      - name: Tag Major
+        if: "${{ matrix.rewinged.version_major != '' }}"
+        run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MAJOR }}'
+
+      - name: Docker Hub login
+        if: "${{ github.ref == 'refs/heads/main' }}"
+        uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+
+      - name: Push Image
+        if: "${{ github.ref == 'refs/heads/main' }}"
+        run: |
+          docker push '${{ env.IMAGE_NAME_FULL }}'
+
+      - name: Push Image Minor
+        if: "${{ matrix.rewinged.version_minor != '' && github.ref == 'refs/heads/main' }}"
+        run: |
+          docker push '${{ env.IMAGE_NAME_MINOR }}'
+
+      - name: Push Image Major
+        if: "${{ matrix.rewinged.version_major != '' && github.ref == 'refs/heads/main' }}"
+        run: |
+          docker push '${{ env.IMAGE_NAME_MAJOR }}'

@@ -1,0 +1,29 @@
+ARG GO_VERSION=1.19
+FROM golang:$GO_VERSION-alpine as builder
+
+ARG REWINGED_VERSION=0.3.0
+
+WORKDIR $GOPATH/src/jantari/rewinged/
+
+RUN apk add --update --no-cache curl \
+    && curl --location --fail -o rewinged.tar.gz \
+    "https://github.com/jantari/rewinged/archive/refs/tags/v${REWINGED_VERSION}.tar.gz" \
+    && tar -xz --strip-components=1 -f rewinged.tar.gz \
+    && go build -o rewinged \
+        -ldflags "-X main.releaseMode=true -X main.version=${REWINGED_VERSION} -X main.commit=unknown -X 'main.compileTime=$(date)'" \
+        .
+
+FROM alpine
+
+COPY --from=builder /go/src/jantari/rewinged/rewinged /usr/local/bin
+
+RUN mkdir /srv/rewinged \
+    && mkdir /srv/rewinged/packages \
+    && addgroup -g 1000 rewinged \
+    && adduser -D -G rewinged -u 1000 -h /srv/rewinged rewinged
+
+ENTRYPOINT ["/usr/local/bin/rewinged"]
+CMD ["-listen", ":8080", "-manifestPath", "/srv/rewinged/packages"]
+
+USER rewinged
+WORKDIR /srv/rewinged
