@@ -19,6 +19,7 @@ jobs:
           - version: "0.3.0"
             version_minor: ""
             version_major: ""
+            download_hash: "994ee46335c8de233cbaeba51d16593b3eb15b3d14b5b1c6c282dd78d3e43e9f"
 
     env:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-alpine"
@@ -27,7 +28,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    name: "v${{ matrix.rewinged.version }} – Alpine"
+    name: "Alpine v${{ matrix.rewinged.version }}"
 
     steps:
       - uses: actions/checkout@v3
@@ -41,6 +42,7 @@ jobs:
             -t '${{ env.IMAGE_NAME_FULL }}' \
             \
             '--build-arg=REWINGED_VERSION=${{ matrix.rewinged.version }}' \
+            '--build-arg=REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' \
             .
 
       - name: Test Image
@@ -54,6 +56,89 @@ jobs:
       - name: Tag Major
         if: "${{ matrix.rewinged.version_major != '' }}"
         run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MAJOR }}'
+
+      - name: Docker Hub login
+        if: "${{ github.ref == 'refs/heads/main' }}"
+        uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+
+      - name: Push Image
+        if: "${{ github.ref == 'refs/heads/main' }}"
+        run: |
+          docker push '${{ env.IMAGE_NAME_FULL }}'
+
+      - name: Push Image Minor
+        if: "${{ matrix.rewinged.version_minor != '' && github.ref == 'refs/heads/main' }}"
+        run: |
+          docker push '${{ env.IMAGE_NAME_MINOR }}'
+
+      - name: Push Image Major
+        if: "${{ matrix.rewinged.version_major != '' && github.ref == 'refs/heads/main' }}"
+        run: |
+          docker push '${{ env.IMAGE_NAME_MAJOR }}'
+
+  docker-image-windows:
+    strategy:
+      matrix:
+        windows:
+          - image: servercore
+            version: ltsc2019
+            build_version: 1809
+            runs_on: 2019
+          - image: servercore
+            version: ltsc2022
+            build_version: ltsc2022
+            runs_on: 2022
+        rewinged:
+          - version: "0.3.0"
+            version_minor: ""
+            version_major: ""
+            download_hash: "deb6df1749dec36f26bb4edd4387dfb17e40358663cca903d703230bf15bddf5"
+
+    env:
+      IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
+      IMAGE_NAME_MINOR: "fabiang/rewinged:${{ matrix.rewinged.version_minor }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
+      IMAGE_NAME_MAJOR: "fabiang/rewinged:${{ matrix.rewinged.version_major }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
+
+    runs-on: windows-${{ matrix.windows.runs_on }}
+
+    name: "Win v${{ matrix.rewinged.version }} (${{ matrix.windows.image }} – (${{ matrix.windows.version }})"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Githubs Cache with 10GB is to small
+      #      - uses: jpribyl/action-docker-layer-caching@v0.1.1
+      #        continue-on-error: true
+
+      - name: Build Image
+        run: |
+          docker build -f windows/Dockerfile `
+            -t '${{ env.IMAGE_NAME_FULL }}' `
+            `
+            '--build-arg=REWINGED_VERSION=${{ matrix.rewinged.version }}' `
+            '--build-arg=REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' `
+            `
+            '--build-arg=WINDOWS_IMAGE=${{ matrix.windows.image }}' `
+            '--build-arg=WINDOWS_VERSION=${{ matrix.windows.version }}' `
+            '--build-arg=WINDOWS_VERSION_BUILD=${{ matrix.windows.build_version }}' `
+            .
+
+      - name: Tag Minor
+        if: "${{ matrix.rewinged.version_minor != '' }}"
+        run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MINOR }}'
+
+      - name: Tag Major
+        if: "${{ matrix.rewinged.version_major != '' }}"
+        run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MAJOR }}'
+
+      - name: Test image
+        run: |
+          docker run -t --rm --entrypoint='' `
+            '${{ env.IMAGE_NAME_FULL }}' `
+            rewinged -version
 
       - name: Docker Hub login
         if: "${{ github.ref == 'refs/heads/main' }}"
