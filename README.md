@@ -9,14 +9,15 @@ Docker Image for rewinged – a self-hosted winget package source
 ## Available tags
 
 * 0.3.0-alpine
+* 0.3.0-windowsservercore-lts2022
+* 0.3.0-windowsservercore-lts2019
 
 ## Usage
 
 ```
   docker run -it --rm \
     -v "mypackagesvolume:/srv/rewinged/packages" \
-    fabiang/rewinged:0.3.0-alpine \
-    -version
+    fabiang/rewinged:0.3.0-alpine
 ```
 
 ## License
