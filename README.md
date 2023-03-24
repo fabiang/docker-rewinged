@@ -9,8 +9,8 @@ Docker Image for rewinged – a self-hosted winget package source
 ## Available tags
 
 * 0.3.0-alpine
-* 0.3.0-windowsservercore-lts2022
-* 0.3.0-windowsservercore-lts2019
+* 0.3.0-windowsservercore-ltsc2022
+* 0.3.0-windowsservercore-ltsc2019
 
 ## Usage
 
