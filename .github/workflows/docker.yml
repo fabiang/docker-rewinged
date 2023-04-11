@@ -29,6 +29,7 @@ jobs:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-alpine"
       IMAGE_NAME_MINOR: "fabiang/rewinged:${{ matrix.rewinged.version_minor }}-alpine"
       IMAGE_NAME_MAJOR: "fabiang/rewinged:${{ matrix.rewinged.version_major }}-alpine"
+      DOCKER_BUILDKIT: 1
 
     runs-on: ubuntu-latest
 
