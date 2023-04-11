@@ -16,6 +16,10 @@ jobs:
       matrix:
         rewinged:
           # lts: true should also be the latest version of the LTS versions (so only one lts: true)
+          - version: "0.4.0"
+            version_minor: ""
+            version_major: ""
+            download_hash: "9e529e575b80813d2b46759e789ab311dae9749ed860d78bf56021e722e8539e"
           - version: "0.3.0"
             version_minor: ""
             version_major: ""
@@ -25,6 +29,7 @@ jobs:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-alpine"
       IMAGE_NAME_MINOR: "fabiang/rewinged:${{ matrix.rewinged.version_minor }}-alpine"
       IMAGE_NAME_MAJOR: "fabiang/rewinged:${{ matrix.rewinged.version_major }}-alpine"
+      DOCKER_BUILDKIT: 1
 
     runs-on: ubuntu-latest
 
@@ -41,8 +46,8 @@ jobs:
           docker build -f alpine/Dockerfile \
             -t '${{ env.IMAGE_NAME_FULL }}' \
             \
-            '--build-arg=REWINGED_VERSION=${{ matrix.rewinged.version }}' \
-            '--build-arg=REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' \
+            --build-arg 'REWINGED_VERSION=${{ matrix.rewinged.version }}' \
+            --build-arg 'REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' \
             .
 
       - name: Test Image
@@ -92,6 +97,10 @@ jobs:
             build_version: ltsc2022
             runs_on: 2022
         rewinged:
+          - version: "0.4.0"
+            version_minor: ""
+            version_major: ""
+            download_hash: "49fbcc09e47e922dcf92a997a391359b0209c95bb037c237f0c209d6bb4c7e81"
           - version: "0.3.0"
             version_minor: ""
             version_major: ""
@@ -118,12 +127,12 @@ jobs:
           docker build -f windows/Dockerfile `
             -t '${{ env.IMAGE_NAME_FULL }}' `
             `
-            '--build-arg=REWINGED_VERSION=${{ matrix.rewinged.version }}' `
-            '--build-arg=REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' `
+            --build-arg 'REWINGED_VERSION=${{ matrix.rewinged.version }}' `
+            --build-arg 'REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' `
             `
-            '--build-arg=WINDOWS_IMAGE=${{ matrix.windows.image }}' `
-            '--build-arg=WINDOWS_VERSION=${{ matrix.windows.version }}' `
-            '--build-arg=WINDOWS_VERSION_BUILD=${{ matrix.windows.build_version }}' `
+            --build-arg 'WINDOWS_IMAGE=${{ matrix.windows.image }}' `
+            --build-arg 'WINDOWS_VERSION=${{ matrix.windows.version }}' `
+            --build-arg 'WINDOWS_VERSION_BUILD=${{ matrix.windows.build_version }}' `
             .
 
       - name: Tag Minor
