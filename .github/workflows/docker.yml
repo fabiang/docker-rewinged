@@ -45,8 +45,8 @@ jobs:
           docker build -f alpine/Dockerfile \
             -t '${{ env.IMAGE_NAME_FULL }}' \
             \
-            '--build-arg=REWINGED_VERSION=${{ matrix.rewinged.version }}' \
-            '--build-arg=REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' \
+            --build-arg 'REWINGED_VERSION=${{ matrix.rewinged.version }}' \
+            --build-arg 'REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' \
             .
 
       - name: Test Image
@@ -126,12 +126,12 @@ jobs:
           docker build -f windows/Dockerfile `
             -t '${{ env.IMAGE_NAME_FULL }}' `
             `
-            '--build-arg=REWINGED_VERSION=${{ matrix.rewinged.version }}' `
-            '--build-arg=REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' `
+            --build-arg 'REWINGED_VERSION=${{ matrix.rewinged.version }}' `
+            --build-arg 'REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' `
             `
-            '--build-arg=WINDOWS_IMAGE=${{ matrix.windows.image }}' `
-            '--build-arg=WINDOWS_VERSION=${{ matrix.windows.version }}' `
-            '--build-arg=WINDOWS_VERSION_BUILD=${{ matrix.windows.build_version }}' `
+            --build-arg 'WINDOWS_IMAGE=${{ matrix.windows.image }}' `
+            --build-arg 'WINDOWS_VERSION=${{ matrix.windows.version }}' `
+            --build-arg 'WINDOWS_VERSION_BUILD=${{ matrix.windows.build_version }}' `
             .
 
       - name: Tag Minor
