@@ -1,0 +1,8 @@
+*.orig
+
+.github/
+.dockerignore
+.editorconfig
+.gitignore
+LICENSE
+README.md
