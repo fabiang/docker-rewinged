@@ -8,6 +8,9 @@ Docker Image for [rewinged](https://github.com/jantari/rewinged) – a self-host
 
 ## Available tags
 
+* 0.6.0-alpine
+* 0.6.0-windowsservercore-ltsc2022
+* 0.6.0-windowsservercore-ltsc2019
 * 0.5.0-alpine
 * 0.5.0-windowsservercore-ltsc2022
 * 0.5.0-windowsservercore-ltsc2019
