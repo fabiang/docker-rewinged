@@ -15,7 +15,10 @@ jobs:
     strategy:
       matrix:
         rewinged:
-          # lts: true should also be the latest version of the LTS versions (so only one lts: true)
+          - version: "0.6.1"
+            version_minor: ""
+            version_major: ""
+            download_hash: "c3d22d5407ae556ccc0d6653235239fcb2c263919a97a7ebde20705528a880fa" # sha256
           - version: "0.6.0"
             version_minor: ""
             version_major: ""
@@ -105,6 +108,10 @@ jobs:
             build_version: ltsc2022
             runs_on: 2022
         rewinged:
+          - version: "0.6.1"
+            version_minor: ""
+            version_major: ""
+            download_hash: "63a08fdc9c28e75344832644deeacd10a4f34fe1c8e92ee0237bfa49e9659117" # sha256
           - version: "0.6.0"
             version_minor: ""
             version_major: ""
