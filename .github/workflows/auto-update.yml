@@ -1,0 +1,145 @@
+name: Docker Image
+
+on:
+  schedule:
+    - cron: "0 7 * * *"
+
+jobs:
+  auto-update:
+    name: "Auto-Update Rewinged Docker Image"
+    runs-on: ubuntu-latest
+    env:
+      JSONPATH_ALPINE: .jobs.docker-image-alpine.strategy.matrix.rewinged
+      JSONPATH_WINDOWS: .jobs.docker-image-windows.strategy.matrix.rewinged
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - uses: octokit/request-action@v2.x
+        id: rewinged_latest_release
+        with:
+          route: GET /repos/jantari/rewinged/releases/latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Get number of Alpine versions"
+        id: get_alpine_versions
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '${{ env.JSONPATH_ALPINE }} | length' '.github/workflows/docker.yml'
+
+      - name: "Get OUR lastest version for Alpine"
+        id: get_alpine_latest_version
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '${{ env.JSONPATH_ALPINE }}.[-1].version' '.github/workflows/docker.yml'
+
+      - name: "Get number of Windows versions"
+        id: get_windows_versions
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '${{ env.JSONPATH_WINDOWS }} | length' '.github/workflows/docker.yml'
+
+      - name: "Get OUR lastest version for Windows"
+        id: get_windows_latest_version
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '${{ env.JSONPATH_WINDOWS }}.[-1].version' '.github/workflows/docker.yml'
+
+      - run: |
+          echo "REWINGED_LATEST=$(echo '${{ fromJson(steps.rewinged_latest_release.outputs.data).tag_name }}' | cut -c 2- )" >> $GITHUB_ENV
+          echo "REWINGED_VERSION_MAJOR=$(echo '${{ fromJson(steps.rewinged_latest_release.outputs.data).tag_name }}' | cut -d '.' -f1 | cut -c 2- )" >> $GITHUB_ENV
+          echo "REWINGED_VERSION_MINOR=$(echo '${{ fromJson(steps.rewinged_latest_release.outputs.data).tag_name }}' | cut -d '.' -f1-2 | cut -c 2- )" >> $GITHUB_ENV
+          echo "REWINGED_VERSION_ALPINE=${{ steps.get_alpine_latest_version.outputs.result }}" >> $GITHUB_ENV
+          echo "REWINGED_VERSION_WINDOWS=${{ steps.get_windows_latest_version.outputs.result }}" >> $GITHUB_ENV
+
+      - name: Download TARBALL
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE }}
+        run: |
+          curl -v -L '${{ fromJson(steps.rewinged_latest_release.outputs.data).tarball_url }}' -o 'rewinged.tar'
+          echo "REWINGED_TARBALL_HASH=$( sha256sum rewinged.tar | cut -d ' ' -f1 )" >> $GITHUB_ENV
+
+      - name: Download ZIPBALL
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE }}
+        run: |
+          curl -v -L '${{ fromJson(steps.rewinged_latest_release.outputs.data).zipball_url }}' -o 'rewinged.zip'
+          echo "REWINGED_ZIPBALL_HASH=$( sha256sum rewinged.zip | cut -d ' ' -f1 )" >> $GITHUB_ENV
+
+      - run: |
+          echo Latest Version: $REWINGED_LATEST
+          echo Major version: $REWINGED_VERSION_MAJOR
+          echo Minor version: $REWINGED_VERSION_MINOR
+          echo Our Alpine Version: $REWINGED_VERSION_ALPINE
+          echo Download hash tarball: $REWINGED_TARBALL_HASH
+          echo Our Windows Version: $REWINGED_VERSION_WINDOWS
+          echo Download hash zipball: $REWINGED_ZIPBALL_HASH
+
+      - name: Handle version < 1
+        if: ${{ env.REWINGED_VERSION_MAJOR == '0' }}
+        run: |
+          echo REWINGED_VERSION_MAJOR="" >> $GITHUB_ENV
+          echo REWINGED_VERSION_MINOR="" >> $GITHUB_ENV
+
+      - name: Fix Major versions Alpine
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i 'with((${{ env.JSONPATH_ALPINE }}[] | select(.version_major == "${{ env.REWINGED_VERSION_MAJOR }}")); .version_major = "")' .github/workflows/docker.yml
+
+      - name: Fix Minor versions Alpine
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i 'with((${{ env.JSONPATH_ALPINE }}[] | select(.version_minor == "${{ env.REWINGED_VERSION_MINOR }}")); .version_minor = "")' .github/workflows/docker.yml
+
+      - name: Fix Latest Alpine
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i 'with((${{ env.JSONPATH_ALPINE }}[] | select(.latest == true)); .latest = false)' .github/workflows/docker.yml
+
+      - name: "Add new Version for Alpine"
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i '${{ env.JSONPATH_ALPINE }} = ${{ env.JSONPATH_ALPINE }} + {"version": "${{ env.REWINGED_LATEST }}", "version_major": "${{ env.REWINGED_VERSION_MAJOR }}", "version_minor": "${{ env.REWINGED_VERSION_MINOR }}", "download_hash": "${{ env.REWINGED_TARBALL_HASH }}", "latest": true}' .github/workflows/docker.yml
+
+      - name: Fix Major versions Windows
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i 'with((${{ env.JSONPATH_WINDOWS }}[] | select(.version_major == "${{ env.REWINGED_VERSION_MAJOR }}")); .version_major = "")' .github/workflows/docker.yml
+
+      - name: Fix Minor versions Windows
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i 'with((${{ env.JSONPATH_WINDOWS }}[] | select(.version_minor == "${{ env.REWINGED_VERSION_MINOR }}")); .version_minor = "")' .github/workflows/docker.yml
+
+      - name: Fix Latest Windows
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i 'with((${{ env.JSONPATH_WINDOWS }}[] | select(.latest == true)); .latest = false)' .github/workflows/docker.yml
+
+      - name: "Add new Version for Windows"
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i '${{ env.JSONPATH_WINDOWS }} = ${{ env.JSONPATH_WINDOWS }} + {"version": "${{ env.REWINGED_LATEST }}", "version_major": "${{ env.REWINGED_VERSION_MAJOR }}", "version_minor": "${{ env.REWINGED_VERSION_MINOR }}", "download_hash": "${{ env.REWINGED_ZIPBALL_HASH }}", "latest": true}' .github/workflows/docker.yml
+
+      - name: Create Pull Request
+        if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE || env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: 'Add version ${{ env.env.REWINGED_LATEST }}'
+          title: 'Add version ${{ env.env.REWINGED_LATEST }}'
+          branch: 'update-${{ env.env.REWINGED_LATEST }}'

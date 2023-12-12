@@ -14,31 +14,38 @@ jobs:
   docker-image-alpine:
     strategy:
       matrix:
+        # MUST ORDER versions ascending
         rewinged:
-          - version: "0.7.1"
-            version_minor: ""
-            version_major: ""
-            download_hash: "dcf0158dbb71612491dc7f9f0260ee1b6e372f3b94f14735ef626343e7f79111" # sha256
-          - version: "0.6.1"
-            version_minor: ""
-            version_major: ""
-            download_hash: "c3d22d5407ae556ccc0d6653235239fcb2c263919a97a7ebde20705528a880fa"
-          - version: "0.6.0"
-            version_minor: ""
-            version_major: ""
-            download_hash: "7b0bf0cd99b6bb5c646c5d8b98b42af62b3e92a2f5e9ef5ca6d28e66a314e600"
-          - version: "0.5.0"
-            version_minor: ""
-            version_major: ""
-            download_hash: "33cc58f70a573f11a4e24eaf475c91d30b5515ddf065aa5aa0f0061f0cc2ebc2"
-          - version: "0.4.0"
-            version_minor: ""
-            version_major: ""
-            download_hash: "9e529e575b80813d2b46759e789ab311dae9749ed860d78bf56021e722e8539e"
           - version: "0.3.0"
-            version_minor: ""
             version_major: ""
+            version_minor: ""
             download_hash: "994ee46335c8de233cbaeba51d16593b3eb15b3d14b5b1c6c282dd78d3e43e9f"
+            latest: false
+          - version: "0.4.0"
+            version_major: ""
+            version_minor: ""
+            download_hash: "9e529e575b80813d2b46759e789ab311dae9749ed860d78bf56021e722e8539e"
+            latest: false
+          - version: "0.5.0"
+            version_major: ""
+            version_minor: ""
+            download_hash: "33cc58f70a573f11a4e24eaf475c91d30b5515ddf065aa5aa0f0061f0cc2ebc2"
+            latest: false
+          - version: "0.6.0"
+            version_major: ""
+            version_minor: ""
+            download_hash: "7b0bf0cd99b6bb5c646c5d8b98b42af62b3e92a2f5e9ef5ca6d28e66a314e600"
+            latest: false
+          - version: "0.6.1"
+            version_major: ""
+            version_minor: ""
+            download_hash: "c3d22d5407ae556ccc0d6653235239fcb2c263919a97a7ebde20705528a880fa"
+            latest: false
+          - version: "0.7.1"
+            version_major: ""
+            version_minor: ""
+            download_hash: "dcf0158dbb71612491dc7f9f0260ee1b6e372f3b94f14735ef626343e7f79111"
+            latest: true
 
     env:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-alpine"
@@ -112,30 +119,37 @@ jobs:
             build_version: ltsc2022
             runs_on: 2022
         rewinged:
-          - version: "0.7.1"
-            version_minor: ""
-            version_major: ""
-            download_hash: "6ca17952381fb5f7fb0bb73af17b5f290d576461a7bc05de19c9665d2274c162" # sha256
-          - version: "0.6.1"
-            version_minor: ""
-            version_major: ""
-            download_hash: "63a08fdc9c28e75344832644deeacd10a4f34fe1c8e92ee0237bfa49e9659117"
-          - version: "0.6.0"
-            version_minor: ""
-            version_major: ""
-            download_hash: "6db9dbaff5de9349edca9f2fbb4c3bc9fa5c165544a5f8f79e1b946b55206703"
-          - version: "0.5.0"
-            version_minor: ""
-            version_major: ""
-            download_hash: "dc7618aaedd731971bd876142b7dd301dc0d8a0305677c07b2041ab3d0d5d070"
-          - version: "0.4.0"
-            version_minor: ""
-            version_major: ""
-            download_hash: "49fbcc09e47e922dcf92a997a391359b0209c95bb037c237f0c209d6bb4c7e81"
+          # MUST ORDER versions ascending
           - version: "0.3.0"
-            version_minor: ""
             version_major: ""
+            version_minor: ""
             download_hash: "deb6df1749dec36f26bb4edd4387dfb17e40358663cca903d703230bf15bddf5"
+            latest: false
+          - version: "0.4.0"
+            version_major: ""
+            version_minor: ""
+            download_hash: "49fbcc09e47e922dcf92a997a391359b0209c95bb037c237f0c209d6bb4c7e81"
+            latest: false
+          - version: "0.5.0"
+            version_major: ""
+            version_minor: ""
+            download_hash: "dc7618aaedd731971bd876142b7dd301dc0d8a0305677c07b2041ab3d0d5d070"
+            latest: false
+          - version: "0.6.0"
+            version_major: ""
+            version_minor: ""
+            download_hash: "6db9dbaff5de9349edca9f2fbb4c3bc9fa5c165544a5f8f79e1b946b55206703"
+            latest: false
+          - version: "0.6.1"
+            version_major: ""
+            version_minor: ""
+            download_hash: "63a08fdc9c28e75344832644deeacd10a4f34fe1c8e92ee0237bfa49e9659117"
+            latest: false
+          - version: "0.7.1"
+            version_major: ""
+            version_minor: ""
+            download_hash: "6ca17952381fb5f7fb0bb73af17b5f290d576461a7bc05de19c9665d2274c162"
+            latest: true
 
     env:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
