@@ -15,10 +15,14 @@ jobs:
     strategy:
       matrix:
         rewinged:
+          - version: "0.7.1"
+            version_minor: ""
+            version_major: ""
+            download_hash: "dcf0158dbb71612491dc7f9f0260ee1b6e372f3b94f14735ef626343e7f79111" # sha256
           - version: "0.6.1"
             version_minor: ""
             version_major: ""
-            download_hash: "c3d22d5407ae556ccc0d6653235239fcb2c263919a97a7ebde20705528a880fa" # sha256
+            download_hash: "c3d22d5407ae556ccc0d6653235239fcb2c263919a97a7ebde20705528a880fa"
           - version: "0.6.0"
             version_minor: ""
             version_major: ""
@@ -108,10 +112,14 @@ jobs:
             build_version: ltsc2022
             runs_on: 2022
         rewinged:
+          - version: "0.7.1"
+            version_minor: ""
+            version_major: ""
+            download_hash: "6ca17952381fb5f7fb0bb73af17b5f290d576461a7bc05de19c9665d2274c162" # sha256
           - version: "0.6.1"
             version_minor: ""
             version_major: ""
-            download_hash: "63a08fdc9c28e75344832644deeacd10a4f34fe1c8e92ee0237bfa49e9659117" # sha256
+            download_hash: "63a08fdc9c28e75344832644deeacd10a4f34fe1c8e92ee0237bfa49e9659117"
           - version: "0.6.0"
             version_minor: ""
             version_major: ""
