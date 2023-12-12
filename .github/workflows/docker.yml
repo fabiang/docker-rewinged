@@ -6,6 +6,7 @@ on:
       - "README.md"
       - "LICENSE"
       - ".editorconfig"
+      - ".github/workflows/auto-update.yml"
   pull_request:
   schedule:
     - cron: "0 12 1-7 * 2"
