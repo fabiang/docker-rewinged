@@ -8,8 +8,6 @@ on:
       - ".editorconfig"
       - ".github/workflows/auto-update.yml"
   pull_request:
-  schedule:
-    - cron: "0 12 1-7 * 2"
 
 jobs:
   docker-image-alpine:
