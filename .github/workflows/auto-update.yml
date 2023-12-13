@@ -22,23 +22,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Get number of Alpine versions"
-        id: get_alpine_versions
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq '${{ env.JSONPATH_ALPINE }} | length' '.github/workflows/docker.yml'
-
       - name: "Get OUR lastest version for Alpine"
         id: get_alpine_latest_version
         uses: mikefarah/yq@master
         with:
           cmd: yq '${{ env.JSONPATH_ALPINE }}.[-1].version' '.github/workflows/docker.yml'
-
-      - name: "Get number of Windows versions"
-        id: get_windows_versions
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq '${{ env.JSONPATH_WINDOWS }} | length' '.github/workflows/docker.yml'
 
       - name: "Get OUR lastest version for Windows"
         id: get_windows_latest_version
