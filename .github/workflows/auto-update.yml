@@ -9,6 +9,8 @@ jobs:
   auto-update:
     name: "Auto-Update Rewinged Docker Image"
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     env:
       JSONPATH_ALPINE: .jobs.docker-image-alpine.strategy.matrix.rewinged
       JSONPATH_WINDOWS: .jobs.docker-image-windows.strategy.matrix.rewinged
