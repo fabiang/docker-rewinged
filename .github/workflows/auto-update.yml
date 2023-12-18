@@ -3,6 +3,7 @@ name: Auto Update
 on:
   schedule:
     - cron: "0 7 * * *"
+  push:
 
 jobs:
   auto-update:
@@ -128,6 +129,7 @@ jobs:
         if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE || env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: 'Add version ${{ env.env.REWINGED_LATEST }}'
-          title: 'Add version ${{ env.env.REWINGED_LATEST }}'
-          branch: 'update-${{ env.env.REWINGED_LATEST }}'
+          commit-message: 'Add version ${{ env.REWINGED_LATEST }}'
+          title: 'Add version ${{ env.REWINGED_LATEST }}'
+          branch: 'update-${{ env.REWINGED_LATEST }}'
+          token: MY_GITHUB_TOKEN
