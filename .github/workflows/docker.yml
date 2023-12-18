@@ -53,8 +53,6 @@ jobs:
       DOCKER_BUILDKIT: 1
 
     runs-on: ubuntu-latest
-    permissions:
-      actions: write
 
     name: "Alpine v${{ matrix.rewinged.version }}"
 
@@ -158,8 +156,6 @@ jobs:
       IMAGE_NAME_MAJOR: "fabiang/rewinged:${{ matrix.rewinged.version_major }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
 
     runs-on: windows-${{ matrix.windows.runs_on }}
-    permissions:
-      actions: write
 
     name: "Win v${{ matrix.rewinged.version }} (${{ matrix.windows.image }} – (${{ matrix.windows.version }})"
 
