@@ -139,4 +139,3 @@ jobs:
           commit-message: 'Add version ${{ env.REWINGED_LATEST }}'
           title: 'Add version ${{ env.REWINGED_LATEST }}'
           branch: 'update-${{ env.REWINGED_LATEST }}'
-          author: ${{ secrets.DEFAULT_AUTHOR }}
