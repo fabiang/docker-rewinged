@@ -23,7 +23,7 @@ jobs:
         with:
           route: GET /repos/jantari/rewinged/releases/latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       - name: "Get OUR lastest version for Alpine"
         id: get_alpine_latest_version
