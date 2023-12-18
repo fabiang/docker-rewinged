@@ -18,32 +18,32 @@ jobs:
           - version: "0.3.0"
             version_major: ""
             version_minor: ""
-            download_hash: "994ee46335c8de233cbaeba51d16593b3eb15b3d14b5b1c6c282dd78d3e43e9f"
+            download_hash: "43e0eeead12f35a8cf2c6a68372fde2b586211ab9893dca49e6250c8f53cb013"
             latest: false
           - version: "0.4.0"
             version_major: ""
             version_minor: ""
-            download_hash: "9e529e575b80813d2b46759e789ab311dae9749ed860d78bf56021e722e8539e"
+            download_hash: "15405edc60778e2528405700b06ed2e144bd23745300ec830af7cb39e7558079"
             latest: false
           - version: "0.5.0"
             version_major: ""
             version_minor: ""
-            download_hash: "33cc58f70a573f11a4e24eaf475c91d30b5515ddf065aa5aa0f0061f0cc2ebc2"
+            download_hash: "c43c741b816f09907a839ebef6245def591cc1c1d4935ce029b80aaef935b3d3"
             latest: false
           - version: "0.6.0"
             version_major: ""
             version_minor: ""
-            download_hash: "7b0bf0cd99b6bb5c646c5d8b98b42af62b3e92a2f5e9ef5ca6d28e66a314e600"
+            download_hash: "441e0efec3b962ff41ba3a916df8f1f993c567f4d783fb67529030f5b53df458"
             latest: false
           - version: "0.6.1"
             version_major: ""
             version_minor: ""
-            download_hash: "c3d22d5407ae556ccc0d6653235239fcb2c263919a97a7ebde20705528a880fa"
+            download_hash: "2b1611a1442a3c4ec3d6349d09065f773a65e7bf4ecabd8b4422d228ee2b6a39"
             latest: false
           - version: "0.7.1"
             version_major: ""
             version_minor: ""
-            download_hash: "dcf0158dbb71612491dc7f9f0260ee1b6e372f3b94f14735ef626343e7f79111"
+            download_hash: "4eceecab1d857d1f0c6ce6cdf16890237f47bd1e646a2f6b6f460fe11c8211a7"
             latest: true
 
     env:
@@ -122,32 +122,32 @@ jobs:
           - version: "0.3.0"
             version_major: ""
             version_minor: ""
-            download_hash: "deb6df1749dec36f26bb4edd4387dfb17e40358663cca903d703230bf15bddf5"
+            download_hash: "96c02fd4f2ace39fb67cfae9d7c24ff5405e431fb8a986fee3a24146f67f95b7"
             latest: false
           - version: "0.4.0"
             version_major: ""
             version_minor: ""
-            download_hash: "49fbcc09e47e922dcf92a997a391359b0209c95bb037c237f0c209d6bb4c7e81"
+            download_hash: "495c0f60389b78f78e1513ad18a7e83b03f5eda43dae12292fb2eb65adbb8fd4"
             latest: false
           - version: "0.5.0"
             version_major: ""
             version_minor: ""
-            download_hash: "dc7618aaedd731971bd876142b7dd301dc0d8a0305677c07b2041ab3d0d5d070"
+            download_hash: "d425e13d7829f7587a4ebbb3def22a7f0ab306203d0086865b1a4c0eae805bd1"
             latest: false
           - version: "0.6.0"
             version_major: ""
             version_minor: ""
-            download_hash: "6db9dbaff5de9349edca9f2fbb4c3bc9fa5c165544a5f8f79e1b946b55206703"
+            download_hash: "449a491d14587c72b5a2a442edc3d95a4adbf3a6aa59025ec78bbe3770fb30b2"
             latest: false
           - version: "0.6.1"
             version_major: ""
             version_minor: ""
-            download_hash: "63a08fdc9c28e75344832644deeacd10a4f34fe1c8e92ee0237bfa49e9659117"
+            download_hash: "fe5eec78667766933c6d625bf75bd500f88be31421d29c3342d45065b3a4ae19"
             latest: false
           - version: "0.7.1"
             version_major: ""
             version_minor: ""
-            download_hash: "6ca17952381fb5f7fb0bb73af17b5f290d576461a7bc05de19c9665d2274c162"
+            download_hash: "b2fe4bdc8e44a30f93c4969dbe72aa9393abbfe57ad6d650a7cb07fe1ad90ec0"
             latest: true
 
     env:

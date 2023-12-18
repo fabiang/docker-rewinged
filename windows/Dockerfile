@@ -16,7 +16,7 @@ ENV TEMP=C:\\Windows\\TEMP
 RUN Write-Host 'Downloading rewinged source...'; \
     \
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-    Invoke-WebRequest -Uri ("'https://github.com/jantari/rewinged/archive/refs/tags/v{0}.zip'" -f $Env:REWINGED_VERSION) \
+    Invoke-WebRequest -Uri ("'https://api.github.com/repos/jantari/rewinged/zipball/v{0}'" -f $Env:REWINGED_VERSION) \
         -OutFile ("'{0}\\rewinged.zip'" -f $Env:TEMP); \
     \
     Write-Host ('Verifying sha256 ({0}) ...' -f $Env:REWINGED_DOWNLOAD_HASH); \
