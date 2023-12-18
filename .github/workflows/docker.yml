@@ -54,8 +54,7 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      actions: write
 
     name: "Alpine v${{ matrix.rewinged.version }}"
 
@@ -160,8 +159,7 @@ jobs:
 
     runs-on: windows-${{ matrix.windows.runs_on }}
     permissions:
-      contents: write
-      pull-requests: write
+      actions: write
 
     name: "Win v${{ matrix.rewinged.version }} (${{ matrix.windows.image }} – (${{ matrix.windows.version }})"
 
