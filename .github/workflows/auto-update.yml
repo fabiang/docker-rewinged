@@ -128,7 +128,9 @@ jobs:
             yq -i '${{ env.JSONPATH_WINDOWS }} = ${{ env.JSONPATH_WINDOWS }} + {"version": "${{ env.REWINGED_LATEST }}", "version_major": "${{ env.REWINGED_VERSION_MAJOR }}", "version_minor": "${{ env.REWINGED_VERSION_MINOR }}", "download_hash": "${{ env.REWINGED_ZIPBALL_HASH }}", "latest": true}' .github/workflows/docker.yml
 
       - name: Set Github Username
-        run: git config credential.https://github.com.username ${{ secrets.MY_GITHUB_USER }}
+        run: |
+          git config credential.https://github.com.username ${{ secrets.MY_GITHUB_USER }}
+          git config credential.https://github.com.password ${{ secrets.MY_GITHUB_PASSWORD }}
 
       - name: Create Pull Request
         if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE || env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
@@ -138,4 +140,3 @@ jobs:
           title: 'Add version ${{ env.REWINGED_LATEST }}'
           branch: 'update-${{ env.REWINGED_LATEST }}'
           author: "${{ env.DEFAULT_AUTHOR }}"
-          token: MY_GITHUB_TOKEN
