@@ -8,24 +8,13 @@ Docker Image for [rewinged](https://github.com/jantari/rewinged) – a self-host
 
 ## Available tags
 
-* 0.7.1-alpine
-* 0.7.1-windowsservercore-ltsc2022
-* 0.7.1-windowsservercore-ltsc2019
-* 0.6.1-alpine
-* 0.6.1-windowsservercore-ltsc2022
-* 0.6.1-windowsservercore-ltsc2019
-* 0.6.0-alpine
-* 0.6.0-windowsservercore-ltsc2022
-* 0.6.0-windowsservercore-ltsc2019
-* 0.5.0-alpine
-* 0.5.0-windowsservercore-ltsc2022
-* 0.5.0-windowsservercore-ltsc2019
-* 0.4.0-alpine
-* 0.4.0-windowsservercore-ltsc2022
-* 0.4.0-windowsservercore-ltsc2019
-* 0.3.0-alpine
-* 0.3.0-windowsservercore-ltsc2022
-* 0.3.0-windowsservercore-ltsc2019
+We have images for the following operating systems:
+
+* Alpine
+* Windows Server Core LTSC2022
+* Windows Server Core LTSC2019
+
+[Check the "tags" page on Docker Hub](https://hub.docker.com/r/fabiang/rewinged/tags?page=1&ordering=name) for latest available versions.
 
 ## Usage
 
