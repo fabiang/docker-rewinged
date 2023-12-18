@@ -132,4 +132,3 @@ jobs:
           commit-message: 'Add version ${{ env.REWINGED_LATEST }}'
           title: 'Add version ${{ env.REWINGED_LATEST }}'
           branch: 'update-${{ env.REWINGED_LATEST }}'
-          token: MY_GITHUB_TOKEN
