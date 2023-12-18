@@ -130,7 +130,7 @@ jobs:
       - name: Set Github Username
         run: |
           git config credential.https://github.com.username ${{ secrets.MY_GITHUB_USER }}
-          git config credential.https://github.com.password ${{ secrets.MY_GITHUB_PASSWORD }}
+          git config credential.https://github.com.password ${{ secrets.MY_GITHUB_TOKEN }}
 
       - name: Create Pull Request
         if: ${{ env.REWINGED_LATEST != env.REWINGED_VERSION_ALPINE || env.REWINGED_LATEST != env.REWINGED_VERSION_WINDOWS }}
