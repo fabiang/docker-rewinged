@@ -1,5 +1,4 @@
 name: Docker Image
-
 on:
   push:
     paths-ignore:
@@ -8,7 +7,6 @@ on:
       - ".editorconfig"
       - ".github/workflows/auto-update.yml"
   pull_request:
-
 jobs:
   docker-image-alpine:
     strategy:
@@ -44,24 +42,23 @@ jobs:
             version_major: ""
             version_minor: ""
             download_hash: "4eceecab1d857d1f0c6ce6cdf16890237f47bd1e646a2f6b6f460fe11c8211a7"
+            latest: false
+          - version: 0.7.2
+            version_major: ""
+            version_minor: ""
+            download_hash: 1afd1db9623bc9fd2e060178926c8f496b1be3a82618e89a20e3de637cd2da64
             latest: true
-
     env:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-alpine"
       IMAGE_NAME_MINOR: "fabiang/rewinged:${{ matrix.rewinged.version_minor }}-alpine"
       IMAGE_NAME_MAJOR: "fabiang/rewinged:${{ matrix.rewinged.version_major }}-alpine"
       DOCKER_BUILDKIT: 1
-
     runs-on: ubuntu-latest
-
     name: "Alpine v${{ matrix.rewinged.version }}"
-
     steps:
       - uses: actions/checkout@v3
-
       - uses: jpribyl/action-docker-layer-caching@v0.1.1
         continue-on-error: true
-
       - name: Build Image
         run: |
           docker build -f alpine/Dockerfile \
@@ -70,41 +67,33 @@ jobs:
             --build-arg 'REWINGED_VERSION=${{ matrix.rewinged.version }}' \
             --build-arg 'REWINGED_DOWNLOAD_HASH=${{ matrix.rewinged.download_hash }}' \
             .
-
       - name: Test Image
-        run : |
+        run: |
           docker run -i --rm ${{ env.IMAGE_NAME_FULL }} --version
-
       - name: Tag Minor
         if: "${{ matrix.rewinged.version_minor != '' }}"
         run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MINOR }}'
-
       - name: Tag Major
         if: "${{ matrix.rewinged.version_major != '' }}"
         run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MAJOR }}'
-
       - name: Docker Hub login
         if: "${{ github.ref == 'refs/heads/main' }}"
         uses: azure/docker-login@v1
         with:
           username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-
       - name: Push Image
         if: "${{ github.ref == 'refs/heads/main' }}"
         run: |
           docker push '${{ env.IMAGE_NAME_FULL }}'
-
       - name: Push Image Minor
         if: "${{ matrix.rewinged.version_minor != '' && github.ref == 'refs/heads/main' }}"
         run: |
           docker push '${{ env.IMAGE_NAME_MINOR }}'
-
       - name: Push Image Major
         if: "${{ matrix.rewinged.version_major != '' && github.ref == 'refs/heads/main' }}"
         run: |
           docker push '${{ env.IMAGE_NAME_MAJOR }}'
-
   docker-image-windows:
     strategy:
       matrix:
@@ -148,24 +137,23 @@ jobs:
             version_major: ""
             version_minor: ""
             download_hash: "b2fe4bdc8e44a30f93c4969dbe72aa9393abbfe57ad6d650a7cb07fe1ad90ec0"
+            latest: false
+          - version: 0.7.2
+            version_major: ""
+            version_minor: ""
+            download_hash: 9d72ea0aac7a1276caf40f3e7277967c059a8e008b529e360da3dae8368a8296
             latest: true
-
     env:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
       IMAGE_NAME_MINOR: "fabiang/rewinged:${{ matrix.rewinged.version_minor }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
       IMAGE_NAME_MAJOR: "fabiang/rewinged:${{ matrix.rewinged.version_major }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
-
     runs-on: windows-${{ matrix.windows.runs_on }}
-
     name: "Win v${{ matrix.rewinged.version }} (${{ matrix.windows.image }} – (${{ matrix.windows.version }})"
-
     steps:
       - uses: actions/checkout@v3
-
       # Githubs Cache with 10GB is to small
       #      - uses: jpribyl/action-docker-layer-caching@v0.1.1
       #        continue-on-error: true
-
       - name: Build Image
         run: |
           docker build -f windows/Dockerfile `
@@ -178,38 +166,31 @@ jobs:
             --build-arg 'WINDOWS_VERSION=${{ matrix.windows.version }}' `
             --build-arg 'WINDOWS_VERSION_BUILD=${{ matrix.windows.build_version }}' `
             .
-
       - name: Tag Minor
         if: "${{ matrix.rewinged.version_minor != '' }}"
         run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MINOR }}'
-
       - name: Tag Major
         if: "${{ matrix.rewinged.version_major != '' }}"
         run: docker tag '${{ env.IMAGE_NAME_FULL }}' '${{ env.IMAGE_NAME_MAJOR }}'
-
       - name: Test image
         run: |
           docker run -t --rm --entrypoint='' `
             '${{ env.IMAGE_NAME_FULL }}' `
             rewinged -version
-
       - name: Docker Hub login
         if: "${{ github.ref == 'refs/heads/main' }}"
         uses: azure/docker-login@v1
         with:
           username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-
       - name: Push Image
         if: "${{ github.ref == 'refs/heads/main' }}"
         run: |
           docker push '${{ env.IMAGE_NAME_FULL }}'
-
       - name: Push Image Minor
         if: "${{ matrix.rewinged.version_minor != '' && github.ref == 'refs/heads/main' }}"
         run: |
           docker push '${{ env.IMAGE_NAME_MINOR }}'
-
       - name: Push Image Major
         if: "${{ matrix.rewinged.version_major != '' && github.ref == 'refs/heads/main' }}"
         run: |
