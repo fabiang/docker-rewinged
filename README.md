@@ -21,7 +21,7 @@ We have images for the following operating systems:
 ```
   docker run -it --rm \
     -v "mypackagesvolume:/srv/rewinged/packages" \
-    fabiang/rewinged:0.7.1-alpine
+    fabiang/rewinged:0.7.3-alpine
 ```
 
 ## License
