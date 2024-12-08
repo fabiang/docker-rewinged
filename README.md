@@ -13,6 +13,7 @@ We have images for the following operating systems:
 * Alpine
 * Windows Server Core LTSC2022
 * Windows Server Core LTSC2019
+* Windows Server Core LTSC2025
 
 [Check the "tags" page on Docker Hub](https://hub.docker.com/r/fabiang/rewinged/tags?page=1&ordering=name) for latest available versions.
 
