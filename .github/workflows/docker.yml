@@ -126,6 +126,10 @@ jobs:
             version: ltsc2022
             build_version: ltsc2022
             runs_on: 2022
+          - image: servercore
+            version: ltsc2025
+            build_version: ltsc2025
+            runs_on: 2025
         rewinged:
           # MUST ORDER versions ascending
           - version: "0.3.0"
