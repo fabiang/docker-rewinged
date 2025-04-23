@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG GO_VERSION=1.21
-FROM golang:$GO_VERSION-alpine as builder
+ARG GO_VERSION=1.24
+FROM golang:$GO_VERSION-alpine AS builder
 
 ARG REWINGED_VERSION=0.7.1
 ARG REWINGED_DOWNLOAD_HASH=4eceecab1d857d1f0c6ce6cdf16890237f47bd1e646a2f6b6f460fe11c8211a7
