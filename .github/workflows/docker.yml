@@ -67,6 +67,11 @@ jobs:
             version_major: ""
             version_minor: ""
             download_hash: b858fd15aaddf50f47ddad1173d3fedf4248dbca719278a083d6f78eccf66835
+            latest: false
+          - version: 0.11.0
+            version_major: ""
+            version_minor: ""
+            download_hash: a00ca3fedfecb3e4f2c0bb806365971b3ccbc3df5c9d8fbfc9c92aeb53793ba5
             latest: true
     env:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-alpine"
@@ -186,6 +191,11 @@ jobs:
             version_major: ""
             version_minor: ""
             download_hash: 92b607903093e7da7b915f8a1c4124069893759e67381290509bc2f3f87c0bb9
+            latest: false
+          - version: 0.11.0
+            version_major: ""
+            version_minor: ""
+            download_hash: 6391b21cc9affe922f3e2f59ede5eb16503f831eca3833045f735132fc1c8a20
             latest: true
     env:
       IMAGE_NAME_FULL: "fabiang/rewinged:${{ matrix.rewinged.version }}-windows${{ matrix.windows.image }}-${{ matrix.windows.version }}"
