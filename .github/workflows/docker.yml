@@ -13,56 +13,6 @@ jobs:
       matrix:
         # MUST ORDER versions ascending
         rewinged:
-          - version: "0.3.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "43e0eeead12f35a8cf2c6a68372fde2b586211ab9893dca49e6250c8f53cb013"
-            latest: false
-          - version: "0.4.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "15405edc60778e2528405700b06ed2e144bd23745300ec830af7cb39e7558079"
-            latest: false
-          - version: "0.5.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "c43c741b816f09907a839ebef6245def591cc1c1d4935ce029b80aaef935b3d3"
-            latest: false
-          - version: "0.6.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "441e0efec3b962ff41ba3a916df8f1f993c567f4d783fb67529030f5b53df458"
-            latest: false
-          - version: "0.6.1"
-            version_major: ""
-            version_minor: ""
-            download_hash: "2b1611a1442a3c4ec3d6349d09065f773a65e7bf4ecabd8b4422d228ee2b6a39"
-            latest: false
-          - version: "0.7.1"
-            version_major: ""
-            version_minor: ""
-            download_hash: "4eceecab1d857d1f0c6ce6cdf16890237f47bd1e646a2f6b6f460fe11c8211a7"
-            latest: false
-          - version: 0.7.2
-            version_major: ""
-            version_minor: ""
-            download_hash: 1afd1db9623bc9fd2e060178926c8f496b1be3a82618e89a20e3de637cd2da64
-            latest: false
-          - version: 0.7.3
-            version_major: ""
-            version_minor: ""
-            download_hash: 057b6959f1dcef37bc59091abd661a9aeeafaabc1062326bfa36790f00fa3ff5
-            latest: false
-          - version: 0.8.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 7abb5b668069fbfcfb1318c0435ffda42c71fa25c766ce1c26e72e6439d65852
-            latest: false
-          - version: 0.9.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 09a36046717bc5bac3b630ed758dfb21cf98b711af1743dc03e262e0e87d94ed
-            latest: false
           - version: 0.10.0
             version_major: ""
             version_minor: ""
@@ -137,56 +87,6 @@ jobs:
             runs_on: 2025
         rewinged:
           # MUST ORDER versions ascending
-          - version: "0.3.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "96c02fd4f2ace39fb67cfae9d7c24ff5405e431fb8a986fee3a24146f67f95b7"
-            latest: false
-          - version: "0.4.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "495c0f60389b78f78e1513ad18a7e83b03f5eda43dae12292fb2eb65adbb8fd4"
-            latest: false
-          - version: "0.5.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "d425e13d7829f7587a4ebbb3def22a7f0ab306203d0086865b1a4c0eae805bd1"
-            latest: false
-          - version: "0.6.0"
-            version_major: ""
-            version_minor: ""
-            download_hash: "449a491d14587c72b5a2a442edc3d95a4adbf3a6aa59025ec78bbe3770fb30b2"
-            latest: false
-          - version: "0.6.1"
-            version_major: ""
-            version_minor: ""
-            download_hash: "fe5eec78667766933c6d625bf75bd500f88be31421d29c3342d45065b3a4ae19"
-            latest: false
-          - version: "0.7.1"
-            version_major: ""
-            version_minor: ""
-            download_hash: "b2fe4bdc8e44a30f93c4969dbe72aa9393abbfe57ad6d650a7cb07fe1ad90ec0"
-            latest: false
-          - version: 0.7.2
-            version_major: ""
-            version_minor: ""
-            download_hash: 9d72ea0aac7a1276caf40f3e7277967c059a8e008b529e360da3dae8368a8296
-            latest: false
-          - version: 0.7.3
-            version_major: ""
-            version_minor: ""
-            download_hash: 6ec2330ecf39d1ff2e39a6af4c4c26f9e421d0538779c0dc97ac2615bddd9987
-            latest: false
-          - version: 0.8.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 85e0ed278e054b34cc95f19bce7e0636e37549b47c2b9e80c2326034d3956fb1
-            latest: false
-          - version: 0.9.0
-            version_major: ""
-            version_minor: ""
-            download_hash: d11a8d7813a3ecacd0c1b3ffea5c65786504b7f405abb81fb6296e5c734fac33
-            latest: false
           - version: 0.10.0
             version_major: ""
             version_minor: ""
