@@ -84,10 +84,6 @@ jobs:
       matrix:
         windows:
           - image: servercore
-            version: ltsc2019
-            build_version: 1809
-            runs_on: 2019
-          - image: servercore
             version: ltsc2022
             build_version: ltsc2022
             runs_on: 2022
