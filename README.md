@@ -15,14 +15,14 @@ We have images for the following operating systems:
 * Windows Server Core LTSC2022
 * ~Windows Server Core LTSC2019~
 
-[Check the "tags" page on Docker Hub](https://hub.docker.com/r/fabiang/rewinged/tags?page=1&ordering=name) for latest available versions.
+[Check the "tags" page on Docker Hub](https://hub.docker.com/r/fabiang/rewinged/tags?page=1&ordering=name) for latest available versions. *Note*: Version under 0.15.0 are deprecated and are no longer build.
 
 ## Usage
 
 ```
   docker run -it --rm \
     -v "mypackagesvolume:/srv/rewinged/packages" \
-    fabiang/rewinged:0.8.0-alpine
+    fabiang/rewinged:0.15.0-alpine
 ```
 
 ## License

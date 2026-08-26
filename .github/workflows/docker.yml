@@ -7,32 +7,14 @@ on:
       - ".editorconfig"
       - ".github/workflows/auto-update.yml"
   pull_request:
+  schedule:
+    - cron: "0 8 * * *"
 jobs:
   docker-image-alpine:
     strategy:
       matrix:
         # MUST ORDER versions ascending
         rewinged:
-          - version: 0.10.0
-            version_major: ""
-            version_minor: ""
-            download_hash: b858fd15aaddf50f47ddad1173d3fedf4248dbca719278a083d6f78eccf66835
-            latest: false
-          - version: 0.11.0
-            version_major: ""
-            version_minor: ""
-            download_hash: a00ca3fedfecb3e4f2c0bb806365971b3ccbc3df5c9d8fbfc9c92aeb53793ba5
-            latest: false
-          - version: 0.13.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 60be2b7d66a4ee15361daf8c9026d1d541569b801bb76d61bc7506bde02e7a60
-            latest: false
-          - version: 0.14.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 248b383813cf291e46e6f4622623b57302e6c1106e30a8c9acca3d8fa8bdc73c
-            latest: false
           - version: 0.15.0
             version_major: ""
             version_minor: ""
@@ -98,26 +80,6 @@ jobs:
             runs_on: 2025
         rewinged:
           # MUST ORDER versions ascending
-          - version: 0.10.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 92b607903093e7da7b915f8a1c4124069893759e67381290509bc2f3f87c0bb9
-            latest: false
-          - version: 0.11.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 6391b21cc9affe922f3e2f59ede5eb16503f831eca3833045f735132fc1c8a20
-            latest: false
-          - version: 0.13.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 0a40144e11d5bf6665689929508002a8b7d70ab7a7e98067a82076e6c858e7ab
-            latest: false
-          - version: 0.14.0
-            version_major: ""
-            version_minor: ""
-            download_hash: 5b68430ce08132841d5b693cf2accac98e29b0b44bd505707d17525c90b105d3
-            latest: false
           - version: 0.15.0
             version_major: ""
             version_minor: ""
